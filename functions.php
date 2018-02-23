@@ -152,7 +152,7 @@ function bloghub_scripts() {
 	wp_enqueue_script( 'bloghub-js-aos', get_template_directory_uri() . '/assets/js/aos.js', array(), '20151215', true );
 	wp_enqueue_script( 'bloghub-js-lity', get_template_directory_uri() . '/assets/js/lity.js', array(), '20151215', true );
 	wp_enqueue_script( 'bloghub-js-main', get_template_directory_uri() . '/assets/js/main.js', array(), '20151215', true );
-	wp_add_inline_script('bloghub-js-aos','AOS.init(duration: 1800});	');
+	wp_add_inline_script('bloghub-js-aos','AOS.init({duration: 1800});	');
 
 	
 

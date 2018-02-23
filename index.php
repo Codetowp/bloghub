@@ -22,24 +22,55 @@ get_header(); ?>
       <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
-      <div class="carousel-item active"> <img class="d-block w-100" src="<?php echo get_template_directory_uri() . '/assets/img/1.jpg'; ?>" alt="First slide">
+       <?php
+$page_ids = bloghub_slider_data();
+?>
+<?php
+if ( ! empty( $page_ids ) ) 
+{
+    $col = 3;
+    $num_col = 4;
+    $n = count( $page_ids );
+    if ($n < 4) 
+    {
+        switch ($n) 
+        {
+            case 3:
+            $col = 4;
+            $num_col = 3;
+            break;
+            case 2:
+            $col = 6;
+            $num_col = 2;
+            break;
+            default:
+            $col = 12;
+            $num_col = 1;
+        }
+    }
+    $j = 0;
+    global $post;  
+    $firstclass='active'; 
+    foreach ($page_ids as $post_id => $settings  ) 
+    {
+        $post_id = $settings['content_page'];
+        $post_id = apply_filters( 'wpml_object_id', $post_id, 'page', true );
+        $posts = get_post( $post_id );
+        setup_postdata( $posts );
+    $featured_img_url = get_the_post_thumbnail_url($post_id,'full');
+       
+        ?>
+      <div class="carousel-item <?php echo $firstclass; ?>"> <img class="d-block w-100" src="<?php echo esc_url($featured_img_url); ?>" alt="First slide">
         <div class="carousel-caption  d-md-block " data-aos="fade-left">
           <p>Creative Ideas</p>
-          <h2>How to Learn UX Design</h2>
-          <a href="#">Learn More</a> </div>
+          <h2><?php echo esc_html( get_the_title($post_id)); ?></h2>
+          <a href="<?php echo esc_url (get_permalink($post_id)); ?>"><?php esc_html_e('Learn More','bloghub'); ?></a> </div>
       </div>
-      <div class="carousel-item"> <img class="d-block w-100" src="<?php echo get_template_directory_uri() . '/assets/img/2.jpg';?>" alt="Second slide">
-        <div class="carousel-caption e d-md-block" data-aos="fade-left">
-          <p>Creative Ideas</p>
-          <h2>How to Learn UX Design</h2>
-          <a href="#">Learn More</a> </div>
-      </div>
-      <div class="carousel-item"> <img class="d-block w-100" src="<?php echo get_template_directory_uri() . '/assets/img/3.jpg'?>" alt="Third slide">
-        <div class="carousel-caption  d-md-block aos-animate fade" data-aos="fade-left">
-          <p>Creative Ideas</p>
-          <h2>How to Learn UX Design</h2>
-          <a href="#">Learn More</a> </div>
-      </div>
+      <?php
+    $firstclass='';
+    }  // end foreach
+    wp_reset_postdata();
+} ?>
     </div>
     <a class="carousel-control-prev " href="#carouselExampleIndicators" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> </a> <a class="carousel-control-next  " href="#carouselExampleIndicators" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> </a> </div>
 </section>

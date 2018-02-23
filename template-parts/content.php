@@ -11,7 +11,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
-	<header class="entry-header"> <img src="img/2.jpg" alt="" >
+	<header class="entry-header"> <img src="<?php the_post_thumbnail_url(); ?>" alt="" >
 		<div class="home-article-content "> <span class="tag-details"><?php
 		$id = get_the_ID();
 

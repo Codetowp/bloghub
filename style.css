@@ -2950,7 +2950,7 @@ ul.top-social li a:hover {
 }
 .posts-navigation .nav-previous {
 }
-.single .posts-navigation ul li a {
+.single .posts-navigation ul li a, .page .posts-navigation ul li a {
 	background: none;
 	color: #888;
 	font-size: 14px;
@@ -2962,23 +2962,23 @@ ul.top-social li a:hover {
 	border-left: none;
 	margin: 0 auto !important;
 }
-.single .posts-navigation ul li {
+.single .posts-navigation ul li, .page .posts-navigation ul li  {
 	max-width: 230px;
 	text-align: inherit;
 }
-.single .posts-navigation ul li a span {
+.single .posts-navigation ul li a span, .page .posts-navigation ul li a span {
 	display: block;
 	color: #555;
 }
-.single .posts-navigation ul li:last-child a {
+.single .posts-navigation ul li:last-child a, .page .posts-navigation ul li:last-child a {
 	border-right: none;
 	border-left: 1px #f0f2f7 solid;
 }
-.single .posts-navigation ul li .nav-previous, .single .posts-navigation ul li .nav-previous a {
+.single .posts-navigation ul li .nav-previous, .single .posts-navigation ul li .nav-previous a, .page .posts-navigation ul li .nav-previous, .page .posts-navigation ul li .nav-previous a {
 	float: left;
 	text-align: left;
 }
-.single .posts-navigation ul li .nav-next, .single .posts-navigation ul li .nav-next a {
+.single .posts-navigation ul li .nav-next, .single .posts-navigation ul li .nav-next a, .page .posts-navigation ul li .nav-next, .page .posts-navigation ul li .nav-next a  {
 	float: right;
 }
 /* Footer */

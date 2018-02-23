@@ -145,3 +145,24 @@ function bloghub_post_thumbnail() {
 	<?php endif; // End is_singular().
 }
 endif;
+if ( ! function_exists( 'bloghub_slider_data' ) ) 
+{
+    /**
+     * Get counter data
+     *
+     * @return array
+     */
+    function bloghub_slider_data()
+    {
+        $images = get_theme_mod('bloghub_slider_images');
+        if (is_string($images)) 
+		{
+            $images = json_decode($images, true);
+        }
+        if (empty($images) || !is_array($images)) 
+		{
+            $images = array();
+        }
+        return $images;
+    }
+}

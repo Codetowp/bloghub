@@ -14,6 +14,14 @@ function bloghub_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
+	require get_template_directory() . '/inc/customizer-controls.php';
+	 $pages  =  get_pages();
+    $bloghub_option_pages = array();
+    $bloghub_option_pages[0] = esc_html__( 'Select page', 'bloghub' );
+    foreach( $pages as $p )
+        {
+            $bloghub_option_pages[ $p->ID ] = $p->post_title;
+        }
 
 	if ( isset( $wp_customize->selective_refresh ) ) {
 		$wp_customize->selective_refresh->add_partial( 'blogname', array(
@@ -67,7 +75,66 @@ $wp_customize->add_panel( 'bloghub_general_panel' ,array(
 		'label' 					=> __( 'Related post count', 'bloghub' ),
 		'section'  					=> 'bloghub_blog_section',
 		'priority' 					=> 2,
-	) );	
+	) );
+	
+
+ //header
+    $wp_customize->add_section( 'bloghub_header_section', array(
+  'title' => __( 'header', 'bloghub' ),
+  'priority' => 116,
+  'panel'    =>'bloghub_general_panel',
+) );
+$wp_customize->add_setting( 'bloghub_slider_images', array(
+        'sanitize_callback' => 'bloghub_sanitize_repeatable_data_field',
+        'transport' => 'refresh', // refresh or postMessage
+    ) );
+$wp_customize->add_control(
+    new Bloghub_Customize_Repeatable_Control(
+$wp_customize,
+    'bloghub_slider_images',
+    array(
+        'label'         => esc_html__('Slider', 'bloghub'),
+        'description'   => __('max add item 5','bloghub'),
+        'section'       => 'bloghub_header_section',
+        'live_title_id' => 'content_page', // apply for unput text and textarea only
+        'title_format'  => esc_html__('[live_title]', 'bloghub'), // [live_title]
+        'max_item'      => 5, // Maximum item can add
+        'fields'        => array(
+            'content_page'  => array(
+                'title'     => esc_html__('Select a page', 'bloghub'),
+                'type'      =>'select',
+                'options'       => $bloghub_option_pages
+            ),
+            
+     
+    ),
+
+        )
+    ) );	
+// Social Links
+
+  $wp_customize->add_section( 'bloghub_social_links', array(
+    'title'                     => __( 'Social Links', 'bloghub'  ),
+    'priority'                  => 99,
+    'panel'                     => 'bloghub_general_panel',  
+  ) );
+
+  $social_sites = array( 'facebook', 'twitter','instagram',  'google-plus', 'pinterest', 'linkedin', 'rss');
+
+  foreach( $social_sites as $social_site ) {
+    $wp_customize->add_setting( "bloghub_social_links[$social_site]", array(
+      'default'           => '',
+      'type'              => 'theme_mod',
+      'capability'        => 'edit_theme_options',
+      'sanitize_callback' => 'esc_url_raw'
+    ) );
+
+    $wp_customize->add_control( "bloghub_social_links[$social_site]", array(
+      'label'   => ucwords( $social_site ) . __( " Url:", 'bloghub' ),
+      'section' => 'bloghub_social_links',
+      'type'    => 'text',
+    ) );
+  }
 }
 add_action( 'customize_register', 'bloghub_customize_register' );
 
@@ -106,3 +173,7 @@ function bloghub_customize_preview_js() {
 	wp_enqueue_script( 'bloghub-customizer', get_template_directory_uri() . '/assets/js/customizer.js', array( 'customize-preview' ), '20151215', true );
 }
 add_action( 'customize_preview_init', 'bloghub_customize_preview_js' );
+function bloghub_customizer_css_style() {
+    wp_enqueue_style( 'bloghub-customizer-css', get_template_directory_uri() . '/assets/css/customizer.css' );
+}
+add_action( 'customize_controls_enqueue_scripts', 'bloghub_customizer_css_style' );

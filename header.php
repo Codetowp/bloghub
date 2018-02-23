@@ -30,10 +30,11 @@
       <div class="row ">
         <div class="col-md-6 logo-tagline"> <?php
 			
-			if ( is_front_page() && is_home() ) :
+			
        $custom_logo_id = get_theme_mod( 'custom_logo' );
 $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
-?><a href="#"><img src="<?php echo esc_url($image[0]); ?>"> <?php bloginfo( 'name' ); ?></a>
+if ( has_custom_logo() ) :
+?><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url($image[0]); ?>"> <?php bloginfo( 'name' ); ?></a>
 			<?php else : ?>
 				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
 			<?php
