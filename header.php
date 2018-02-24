@@ -41,12 +41,9 @@ if ( has_custom_logo() ) :
 			endif;
 			?> </div>
         <div class="col-md-6 social-search">
-          <form>
+          <form id="search" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get"> 
             <div class="input-group">
-              <input class="form-control" type="Search" placeholder="Search...">
-              <span class="input-group-btn">
-              <button  type="button"><i class="fa  fa-search"></i></button>
-              </span></div>
+             <input type="text" placeholder="<?php echo esc_attr_x( 'Search...&hellip;', 'placeholder', 'bloghub' ); ?>"  value="<?php echo get_search_query(); ?>" name="s" size="40"/></div>
           </form>
           <ul class="top-social">
             <li><a href="#"><i class="fa fa-facebook"></i></a></li>

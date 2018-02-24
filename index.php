@@ -24,31 +24,9 @@ get_header(); ?>
     <div class="carousel-inner">
        <?php
 $page_ids = bloghub_slider_data();
-?>
-<?php
 if ( ! empty( $page_ids ) ) 
 {
-    $col = 3;
-    $num_col = 4;
-    $n = count( $page_ids );
-    if ($n < 4) 
-    {
-        switch ($n) 
-        {
-            case 3:
-            $col = 4;
-            $num_col = 3;
-            break;
-            case 2:
-            $col = 6;
-            $num_col = 2;
-            break;
-            default:
-            $col = 12;
-            $num_col = 1;
-        }
-    }
-    $j = 0;
+  
     global $post;  
     $firstclass='active'; 
     foreach ($page_ids as $post_id => $settings  ) 
@@ -60,7 +38,7 @@ if ( ! empty( $page_ids ) )
     $featured_img_url = get_the_post_thumbnail_url($post_id,'full');
        
         ?>
-      <div class="carousel-item <?php echo $firstclass; ?>"> <img class="d-block w-100" src="<?php echo esc_url($featured_img_url); ?>" alt="First slide">
+      <div class="carousel-item <?php echo esc_html($firstclass); ?>"> <img class="d-block w-100" src="<?php echo esc_url($featured_img_url); ?>" alt="First slide">
         <div class="carousel-caption  d-md-block " data-aos="fade-left">
           <p>Creative Ideas</p>
           <h2><?php echo esc_html( get_the_title($post_id)); ?></h2>
@@ -82,7 +60,7 @@ $blog_layout=get_theme_mod('bloghub_blog_layout','layout-one');
 switch ($blog_layout){
   
   case 'layout-one':
-  get_template_part( 'template-parts/blog', 'layout-one' );
+   get_template_part( 'template-parts/blog', 'layout-one' );
   break;
   case 'layout-two':
   get_template_part( 'template-parts/blog', 'layout-two' );

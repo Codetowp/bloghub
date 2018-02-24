@@ -14,7 +14,8 @@ function bloghub_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
-	require get_template_directory() . '/inc/customizer-controls.php';
+  load_template( get_template_directory() . '/inc/customizer-controls.php', true ) ;
+
 	 $pages  =  get_pages();
     $bloghub_option_pages = array();
     $bloghub_option_pages[0] = esc_html__( 'Select page', 'bloghub' );
@@ -57,7 +58,7 @@ $wp_customize->add_panel( 'bloghub_general_panel' ,array(
   'section' => 'bloghub_blog_section',
   'type'    => 'radio',
   'choices' => array(
-   'layout-one' => esc_html__( 'Layout one', 'bloghub' ), 
+   'layout-one' => esc_html__( 'layout-one', 'bloghub' ), 
    'layout-two' => esc_html__( 'layout-two', 'bloghub' ),
    'layout-three' => esc_html__( 'layout-three', 'bloghub' ), 
     'layout-four' => esc_html__( 'layout-four', 'bloghub' ),  

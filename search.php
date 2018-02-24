@@ -9,18 +9,20 @@
 
 get_header(); ?>
 
-	<section id="primary" class="content-area">
-		<main id="main" class="site-main">
+	<section id="body-column-type">
+
+				<h1><?php
+					/* translators: %s: search query. */
+					printf( esc_html__( 'Search Results for: %s', 'bloghub' ), '<span>' . get_search_query() . '</span>' );
+				?></h1>
+			<!-- .page-header -->
+  <div class="container">
+    <div class="row"> 
 
 		<?php
 		if ( have_posts() ) : ?>
 
-			<header class="page-header">
-				<h1 class="page-title"><?php
-					/* translators: %s: search query. */
-					printf( esc_html__( 'Search Results for: %s', 'bloghub' ), '<span>' . get_search_query() . '</span>' );
-				?></h1>
-			</header><!-- .page-header -->
+			
 
 			<?php
 			/* Start the Loop */
@@ -43,9 +45,10 @@ get_header(); ?>
 
 		endif; ?>
 
-		</main><!-- #main -->
-	</section><!-- #primary -->
+		</div>
+	</div>
+</section>
 
 <?php
-get_sidebar();
+
 get_footer();

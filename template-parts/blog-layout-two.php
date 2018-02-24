@@ -47,8 +47,9 @@ query_posts($args);
 
         <?php  endwhile;endif; ?>
           <!--/Article full--> 
-          <?php next_posts_link(); ?>
           <?php previous_posts_link(); ?>
+          <?php next_posts_link(); ?>
+          
          
           
           <!--Ad Img--> 
