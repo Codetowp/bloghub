@@ -1694,8 +1694,7 @@ aside li a:hover {
 	display: inline-block;
 	margin-right: 5px;
 }
-.widget_categories {
-}
+
 .widget_categories ul {
 	background: none;
 	padding: 0px;
@@ -1712,6 +1711,12 @@ aside li a:hover {
 	margin-bottom: 1px;
 	text-transform: uppercase;
 	list-style: none;
+}
+ul.children li {
+    border-bottom: none;
+    margin-left: 10%;
+    padding: 0;
+    margin-bottom: 1em;
 }
 .widget_categories ul li a {
 	color: #434959;
@@ -2551,8 +2556,7 @@ ul.top-social li a:hover {
 }
 /*Banner block*/
 
-#home-banner-block {
-}
+
 #home-banner-block .carousel-item {
 	height: 650px;
 }
@@ -2567,6 +2571,9 @@ ul.top-social li a:hover {
 	height: 100%;
 	background: #222328;
 	opacity: 0.5;
+}
+.carousel-indicators li {
+	cursor: pointer;
 }
 #home-banner-block .carousel-control-next-icon {
 	background-image: none;
