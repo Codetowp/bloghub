@@ -88,6 +88,7 @@ add_action( 'after_setup_theme', 'bloghub_setup' );
 add_image_size( 'bloghub-layout-blog', 792, 500,  array( 'top', 'center' ) );
 add_image_size( 'bloghub-layout-four-blog', 255, 360,  array( 'top', 'center' ) );
 add_image_size( 'bloghub-related-post-image', 231,150,  array( 'top', 'center' ) );
+add_image_size( 'bloghub-layout-three-blog', 366,227,  array( 'top', 'center' ) );
 
 /**
  * Registers social widget
