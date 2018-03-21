@@ -166,3 +166,30 @@ if ( ! function_exists( 'bloghub_slider_data' ) )
         return $images;
     }
 }
+if ( ! function_exists( 'bloghub_blog_date' ) ) :
+	/**
+	 * Prints HTML with meta information for the current post-date/time.
+	 */
+	function bloghub_blog_date() {
+		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
+		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+			$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
+		}
+
+		$time_string = sprintf( $time_string,
+			esc_attr( get_the_date( 'c' ) ),
+			esc_html(get_the_date( 'j M Y' ) ),
+			esc_attr( get_the_modified_date( 'c' ) ),
+			esc_html( get_the_modified_date() )
+		);
+
+		$posted_on = sprintf(
+			/* translators: %s: post date. */
+			esc_html_x( ' %s', 'post date', 'bloghub' ),
+			'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
+		);
+
+		echo '<span class="posted-on">' . $posted_on . '</span>'; // WPCS: XSS OK.
+
+	}
+endif;

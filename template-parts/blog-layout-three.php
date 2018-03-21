@@ -15,181 +15,56 @@
       <div class="card-columns"> 
         
         <!--Card-->
-        <div class="card">
-          <article>
-            <header class="entry-header"> <img src="<?php echo get_template_directory_uri() . '/assets/img/5.jpg' ;?>" alt="">
-              <div class="home-article-content ">
-                <h3><a href="#">Top 25 Free Wordpress Themes for bloggers</a></h3>
-                <p>Manual excerpt can be added to each post. Add 
-                  this nice excerpt to each post which is also have 
-                  this nice typography. </p>
-                <!--share-visit-->
-                <ul class="share-visit-article">
-                  <li><span class="byline"> <span class="date-article">04 November 2017</span></span></li>
-                  <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
-                </ul>
-                <!--/share-visit--> 
-                
-              </div>
-            </header>
-          </article>
-        </div>
+        <?php
+      $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+      $blog_count= get_theme_mod('bloghub_blog_list_count',6);
+      $args = array('posts_per_page' => $blog_count, 'paged' => $paged ,'post__not_in' => get_option( 'sticky_posts' ));
+      query_posts($args);
+      if ( have_posts() ) :
+        /* Start the Loop */
+
+        while ( have_posts() ) : the_post();    get_template_part( 'template-parts/content', get_post_format() );
+
+      endwhile;
+
+      else :
+
+      get_template_part( 'template-parts/content', 'none' );
+
+      endif; ?>
+        
+   
+          
         <!--Card--> 
         
-        <!--Card (with tags)-->
-        <div class="card">
-          <article>
-            <header class="entry-header"> <img src="<?php echo get_template_directory_uri() . '/assets/img/5.jpg' ;?>" alt="">
-              <div class="home-article-content ">
-                <h3><a href="#">Top 25 Free Wordpress Themes for bloggers</a></h3>
-                <p>Manual excerpt can be added to each post. Add 
-                  this nice excerpt to each post which is also have 
-                  this nice typography. </p>
-                <span class="tag-details"><a href="#">#Themes</a> <a href="#">#Fashion</a> </span> 
-                
-                <!--share-visit-->
-                <ul class="share-visit-article">
-                  <li><span class="byline"> <span class="date-article">04 November 2017</span></span></li>
-                  <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
-                </ul>
-                <!--/share-visit--> 
-              </div>
-            </header>
-          </article>
-        </div>
-        <!--Card--> 
-        
-        <!--Card  (without paragraph)-->
-        <div class="card">
-          <article>
-            <header class="entry-header"> <img src="<?php echo get_template_directory_uri() . '/assets/img/5.jpg' ;?>" alt="">
-              <div class="home-article-content ">
-                <h3><a href="#">Top 25 Free Wordpress Themes for bloggers</a></h3>
-                
-                <!--share-visit-->
-                <ul class="share-visit-article">
-                  <li><span class="byline"> <span class="date-article">04 November 2017</span></span></li>
-                  <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
-                </ul>
-                <!--/share-visit--> 
-              </div>
-            </header>
-          </article>
-        </div>
-        <!--Card--> 
-        
-        <!--Card-->
-        <div class="card">
-          <article>
-            <header class="entry-header"> <img src="<?php echo get_template_directory_uri() . '/assets/img/5.jpg' ;?>" alt="">
-              <div class="home-article-content ">
-                <h3><a href="#">Top 25 Free Wordpress Themes for bloggers</a></h3>
-                <p>Manual excerpt can be added to each post. Add 
-                  this nice excerpt to each post which is also have 
-                  this nice typography. </p>
-                <!--share-visit-->
-                <ul class="share-visit-article">
-                  <li><span class="byline"> <span class="date-article"> 04 November 2017</span></span></li>
-                  <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
-                </ul>
-                <!--/share-visit--> 
-              </div>
-            </header>
-          </article>
-        </div>
-        <!--Card--> 
-        
-        <!--Card  (without content)-->
-        <div class="card">
-          <article>
-            <header class="entry-header"> <img src="<?php echo get_template_directory_uri() . '/assets/img/5.jpg' ;?>" alt=""> 
-              <!--share-visit-->
-              <ul class="share-visit-article">
-                <li><span class="byline"> <span class="date-article"> 04 November 2017</span></span></li>
-                <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
-              </ul>
-              <!--/share-visit--> 
-            </header>
-          </article>
-        </div>
-        <!--Card--> 
-        
-        <!--Card (without img)-->
-        <div class="card">
-          <article>
-            <header class="entry-header">
-              <div class="home-article-content ">
-                <h3><a href="#">Top 25 Free Wordpress Themes for bloggers</a></h3>
-                <p>Manual excerpt can be added to each post. Add 
-                  this nice excerpt to each post which is also have 
-                  this nice typography. </p>
-                <!--share-visit-->
-                <ul class="share-visit-article">
-                  <li><span class="byline"> <span class="date-article"> 04 November 2017</span></span></li>
-                  <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
-                </ul>
-                <!--/share-visit--> 
-              </div>
-            </header>
-          </article>
-        </div>
-        <!--Card--> 
-        
-        <!--Card  (without content)-->
-        <div class="card">
-          <article>
-            <header class="entry-header"> <img src="<?php echo get_template_directory_uri() . '/assets/img/5.jpg' ;?>" alt=""> 
-              <!--share-visit-->
-              <ul class="share-visit-article">
-                <li><span class="byline"> <span class="date-article"> 04 November 2017</span></span></li>
-                <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
-              </ul>
-              <!--/share-visit--> 
-            </header>
-          </article>
-        </div>
-        <!--Card--> 
-        
-        <!--Card-->
-        <div class="card">
-          <article>
-            <header class="entry-header"> <img src="<?php echo get_template_directory_uri() . '/assets/img/5.jpg' ;?>" alt="">
-              <div class="home-article-content ">
-                <h3><a href="#">Top 25 Free Wordpress Themes for bloggers</a></h3>
-                <p>Manual excerpt can be added to each post. Add 
-                  this nice excerpt to each post which is also have 
-                  this nice typography. </p>
-                <!--share-visit-->
-                <ul class="share-visit-article">
-                  <li><span class="byline"> <span class="date-article"> 04 November 2017</span></span></li>
-                  <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
-                </ul>
-                <!--/share-visit--> 
-              </div>
-            </header>
-          </article>
-        </div>
+     
         <!--Card--> 
         
         <!--Card (Embed Videos)-->
-        <div class="card">
-          <article>
-            <header class="entry-header">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/oRLB3HKr9l4?start=602" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-              <!--share-visit-->
-              <ul class="share-visit-article">
-                <li><span class="byline"> <span class="date-article"> 04 November 2017</span></span></li>
-                <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
-              </ul>
-              <!--/share-visit--> 
-            </header>
-          </article>
-        </div>
+       <div class="clearfix"></div>
+
+        <!--/Article full--> 
+        
         <!--Card--> 
         
       </div>
       <!--/Card block--> 
       
     </div>
+    <nav class="navigation posts-navigation"  role="navigation">
+          <ul>
+            <li>
+              <?php
+              the_posts_pagination(
+                array(
+                  'prev_text' => '<i class="fa fa-chevron-left"></i>' ,
+                  'next_text' =>  '<i class="fa fa-chevron-right"></i>',
+                )
+              );
+              ?>
+              <?php wp_reset_postdata(); ?>
+            </li>
+          </ul>
+        </nav>
   </div>
 </section>

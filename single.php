@@ -48,9 +48,9 @@ get_header(); ?>
 			<div class="clearfix"></div>
 			
 			<!--author box-->
-			<div class="author-box"> <img alt="" src="img/team/03.jpg"  class="avatar " height="100" width="100">
-				<div class="author-box-title"> Authored By <a href="#" rel="author">Author </a> </div>
-				<div class="author-description"> Foysal loves to dig into WordPress, explore what’s possible and share his knowledge with readers. He also has deep interest in anything related to increasing productivity, writing better and being happy! </div>
+			<div class="author-box"> <?php echo get_avatar( get_the_author_meta('ID'), '100', '' ); ?>
+				<div class="author-box-title"> <?php esc_html_e('Authorized By', 'bloghub'); ?><?php the_author_posts_link(); ?></div>
+				<div class="author-description"> <?php the_author_meta('description'); ?> </div>
 				<div class="author_social">
 					<ul class="article-share">
 						<li ><a href="#" title="facebook"><i class="fa fa-facebook"></i></a></li>
@@ -88,7 +88,7 @@ get_header(); ?>
 					</ul>
 				</nav>
 				<!--/posts navigation-->
-				
+				<?php wp_link_pages(); ?>
 				<div class="clearfix"></div>
 				
 				<!--Also like-->

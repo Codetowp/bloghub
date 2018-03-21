@@ -16,7 +16,11 @@ function bloghub_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
   load_template( get_template_directory() . '/inc/customizer-controls.php', true ) ;
 
-	 $pages  =  get_pages();
+	$args = array(
+  'numberposts' => -1
+);
+ 
+$pages = get_posts( $args );
     $bloghub_option_pages = array();
     $bloghub_option_pages[0] = esc_html__( 'Select page', 'bloghub' );
     foreach( $pages as $p )
@@ -26,26 +30,20 @@ function bloghub_customize_register( $wp_customize ) {
 
 	if ( isset( $wp_customize->selective_refresh ) ) {
 		$wp_customize->selective_refresh->add_partial( 'blogname', array(
-			'selector'        => '.site-title a',
+			'selector'        => '#top-header .navbar-brand',
 			'render_callback' => 'bloghub_customize_partial_blogname',
 		) );
 		$wp_customize->selective_refresh->add_partial( 'blogdescription', array(
-			'selector'        => '.site-description',
+			'selector'        => '.top-social-nav-block .logo-tagline a',
 			'render_callback' => 'bloghub_customize_partial_blogdescription',
 		) );
 	}
-//*************************** GENERAL SETTINGS PANEL ***************************//
-$wp_customize->add_panel( 'bloghub_general_panel' ,array(
-	'priority'              => 100,
-	'type'                  =>'option',
-	'title'                 => esc_html__( 'Front page settings', 'bloghub' ),
-	'description'           => '',
-) );
+
 	// Blog SETTINGS
  $wp_customize->add_section( 'bloghub_blog_section', array(
   'title' => __( 'blog', 'bloghub' ),
   'priority' => 115,
-  'panel'    =>'bloghub_general_panel',
+ 
 ) );
 
  $wp_customize->add_setting( 'bloghub_blog_layout', array(
@@ -78,12 +76,23 @@ $wp_customize->add_panel( 'bloghub_general_panel' ,array(
 		'priority' 					=> 2,
 	) );
 	
+$wp_customize->add_setting( 'bloghub_blog_list_count', array(      
+    'default'                   => 6,
+    'sanitize_callback'         => 'absint',
+    'transport'                 => 'refresh',               
+  ) );    
 
+  $wp_customize->add_control( 'bloghub_blog_list_count', array(
+    'type'            => 'text',
+    'label'           => __( 'Blog list count', 'bloghub' ),
+    'section'           => 'bloghub_blog_section',
+    'priority'          => 2,
+  ) );
  //header
     $wp_customize->add_section( 'bloghub_header_section', array(
-  'title' => __( 'header', 'bloghub' ),
-  'priority' => 116,
-  'panel'    =>'bloghub_general_panel',
+  'title' => __( 'Slider', 'bloghub' ),
+  'priority' => 114,
+  
 ) );
 $wp_customize->add_setting( 'bloghub_slider_images', array(
         'sanitize_callback' => 'bloghub_sanitize_repeatable_data_field',
@@ -99,7 +108,7 @@ $wp_customize,
         'section'       => 'bloghub_header_section',
         'live_title_id' => 'content_page', // apply for unput text and textarea only
         'title_format'  => esc_html__('[live_title]', 'bloghub'), // [live_title]
-        'max_item'      => 5, // Maximum item can add
+        'max_item'      => 8, // Maximum item can add
         'fields'        => array(
             'content_page'  => array(
                 'title'     => esc_html__('Select a page', 'bloghub'),
@@ -116,8 +125,8 @@ $wp_customize,
 
   $wp_customize->add_section( 'bloghub_social_links', array(
     'title'                     => __( 'Social Links', 'bloghub'  ),
-    'priority'                  => 99,
-    'panel'                     => 'bloghub_general_panel',  
+    'priority'                  => 117,
+      
   ) );
 
   $social_sites = array( 'facebook', 'twitter','instagram',  'google-plus', 'pinterest', 'linkedin', 'rss');

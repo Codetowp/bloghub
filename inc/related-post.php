@@ -29,7 +29,7 @@ function bloghub_related_post() {
 			}
 			else
 			{
-				$post_thumbnail = get_the_post_thumbnail( get_the_ID(), 'img-responsive' );
+				$post_thumbnail = get_the_post_thumbnail( get_the_ID('bloghub-related-post-image'), 'img-responsive' );
 			}
 			
 			$class_format = '';
@@ -42,7 +42,8 @@ function bloghub_related_post() {
 			global $post;
 			$categories = get_the_category($post->ID);
 			$cat_link = get_category_link($categories[0]->cat_ID);
-			
+
+			$author_name= get_the_author_meta( 'display_name' ); 
 			
 			printf(                    
 				'<div class="item">
@@ -51,14 +52,16 @@ function bloghub_related_post() {
 				<div class="home-article-content ">
 				<h4><a href="%s">%s</a></h4>
 				
-				<span class="byline"> By <span class="author vcard"><a href="#">Ahmed Bensalah </a><span class="date-article">Posted on 04 November 2017</span></span></span> </div>
+				<span class="byline"> '.esc_html_x('By','bloghub').' <span class="author vcard"><a href="'. wp_kses_post( get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) )).'">%s</a><span class="date-article">'.esc_html_x( 'Posted on %s','bloghub').'</span></span></span> </div>
 				</header>
 				</article>
 				</div>
 				',
 				wp_kses_post($post_thumbnail),
 				esc_url( get_permalink() ),
-				esc_html($title)
+				esc_html($title),
+				esc_html($author_name),
+				esc_html(get_the_date())
 			);
 			?>
 			<?php

@@ -17,18 +17,20 @@
     <div class="row animated fadeInUp">
       <div class="col-md-4 col-sm-4 col-xs-12"> 
         <!--copyright-->
-        <p class="copyright">© 2018 <a href="#">BlogHub</a>. All rights reserved</p>
+        <p class="copyright"><?php esc_html_e(' &#169; 2018. A theme by', 'bloghub');?>
+        <?php printf( '<a href="' . esc_url( 'https://dcrazed.com/' ) . '" target="_blank">Dcrazed</a>' ); ?></p>
         <!--/copyright--> 
       </div>
       <!--bottom nav-->
       <div class="col-md-4 col-sm-4 col-xs-12">
         <nav class="bottom-nav">
-          <ul>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Privacy</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Pricing</a></li>
-          </ul>
+        <?php
+        wp_nav_menu( array(
+          'theme_location' => 'menu-2',
+          'menu_id'        => 'footer-menu',
+         
+        ) );
+      ?>
         </nav>
       </div>
       <!--/bottom nav--> 

@@ -1091,6 +1091,9 @@ a:hover, a:active {
 	font-family: 'Lora', serif;
 	font-weight: 600;
 }
+
+
+
 #top-menu.navbar-default ul li a .fa {
 	text-align: right;
 	margin-left: 10px;
@@ -1168,7 +1171,7 @@ a:hover, a:active {
 	width: 100%;
 	transition: width .3s;
 }
-.navbar-default .active-on.cool-link::after {
+.navbar-default .current_page_item .cool-link::after {
 	width: 100%;
 	transition: width .3s;
 }
@@ -2600,11 +2603,19 @@ ul.top-social li a:hover {
 .carousel-caption {
 	bottom: auto;
 }
+.carousel-caption h2 a {
+	color: #fff;
+	text-decoration: none;
+}
+.carousel-caption p a {
+	color: #fff;
+	text-decoration: none;
+}
 .carousel-caption p {
 	font-size: 18px;
 	color: #fff;
 }
-.carousel-caption a {
+.carousel-caption a.slider-btn {
 	border: 1px #fff solid;
 	padding: 10px 20px;
 	font-size: 16px;
@@ -3734,4 +3745,11 @@ blockquote{margin:60px 0;}
 
 }
 @media (max-width: 360px) {
+}
+section.error-404.not-found {
+    padding: 100px 0;
+}
+#body-grid-type .posts-navigation ul{
+
+	background-color: #fff;
 }

@@ -18,7 +18,8 @@
 			<!--Article-->
 			<?php
 			$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-			$args = array('posts_per_page' => 4, 'paged' => $paged ,'post__not_in' => get_option( 'sticky_posts' ));
+			$blog_count= get_theme_mod('bloghub_blog_list_count',6);
+			$args = array('posts_per_page' => $blog_count, 'paged' => $paged ,'post__not_in' => get_option( 'sticky_posts' ));
 			query_posts($args);
 			if ( have_posts() ) :
 				/* Start the Loop */
@@ -26,13 +27,18 @@
 				while ( have_posts() ) : the_post();   ?>
 				<article>
 					<header class="entry-header"><?php if ( has_post_thumbnail() ) {?>
+						<img src="<?php the_post_thumbnail_url('bloghub-layout-blog'); ?>"> <?php } else {?><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/default.jpg' ); ?>"><?php } ?>
+						<div class="home-article-content "> <span class="tag-details"><?php
+		$id = get_the_ID();
 
-
-						<img src="<?php the_post_thumbnail_url(); ?>"> <?php } ?>
-						<div class="home-article-content "> <span class="tag-details"><a href="#">Fashion</a>  </span>
-							<h2><a href="#"><?php the_title(); ?></a></h2>
-							<?php echo wp_kses_post( wp_trim_words( get_the_content(), 10, '...')); ?> <a href="<?php the_permalink(); ?>"><?php esc_html_e('Read More','bloghub'); ?></a>
-							<span class="byline"> By <span class="author vcard"><a href="#">Ahmed Bensalah </a> &diams; <span class="date-article">Posted on 04 November 2017</span></span></span> </div>
+		 $categories = get_the_category($id );
+		
+				foreach ($categories as $category ) {
+				
+				echo '<a href="' .esc_url( get_tag_link($category->term_id)).'">' . esc_html( $category->name ) . '</a> '; }?>  </span>
+							<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+							<p><?php echo wp_kses_post( wp_trim_words( get_the_content(), 10, '...')); ?></p> <a href="<?php the_permalink(); ?>"><?php esc_html_e('Read More','bloghub'); ?></a>
+							<?php bloghub_posted_by(); ?> &diams; <span class="date-article"><?php bloghub_posted_on(); ?></span></span></span>  </div>
 						</header>
 					</article>
 					<!--/Article--> 

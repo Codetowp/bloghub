@@ -22,7 +22,8 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
-	<header class="entry-header"> <img src="<?php the_post_thumbnail_url(); ?>" alt="" >
+	<header class="entry-header"><?php if ( has_post_thumbnail() ) {?>
+            <img src="<?php the_post_thumbnail_url(''); ?>"> <?php } else {?><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/default.jpg' ); ?>"><?php } ?>
 		<div class="home-article-content "> <span class="tag-details"><?php
 		$id = get_the_ID();
 
@@ -36,7 +37,7 @@
 			} } ?>
 		</span>
 		<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-		<span class="byline"> By <span class="author vcard"><a href="#">Ahmed Bensalah </a> &diams; <span class="date-article">Posted on 04 November 2017</span></span></span> </div>
+		<span class="byline"> <?php esc_html_e('By', 'bloghub'); ?><?php the_author_posts_link(); ?> &diams;<?php bloghub_posted_on(); ?></span> </div>
 	</header>
 	
 	<!--article content-->

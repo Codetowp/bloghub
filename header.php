@@ -34,22 +34,32 @@
        $custom_logo_id = get_theme_mod( 'custom_logo' );
 $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
 if ( has_custom_logo() ) :
-?><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url($image[0]); ?>"> <?php bloginfo( 'name' ); ?></a>
+?><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url($image[0]); ?>"> <?php bloginfo( 'description' ); ?></a>
 			<?php else : ?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'description' ); ?></a>
 			<?php
 			endif;
 			?> </div>
         <div class="col-md-6 social-search">
-          <form id="search" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get"> 
+          
+           <form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
             <div class="input-group">
-             <input type="text" placeholder="<?php echo esc_attr_x( 'Search...&hellip;', 'placeholder', 'bloghub' ); ?>"  value="<?php echo get_search_query(); ?>" name="s" size="40"/></div>
+              
+               <input type="text" class="form-control" placeholder="<?php echo esc_attr_x( 'Search...&hellip;', 'placeholder', 'bloghub' ); ?>"  value="<?php echo get_search_query(); ?>" name="s" size="40"/>
+              <span class="input-group-btn">
+              <button  type="submit"><i class="fa  fa-search"></i></button>
+              </span></div>
           </form>
           <ul class="top-social">
-            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+            <?php
+          if ( $socials = get_theme_mod( 'bloghub_social_links' ) ) 
+          {
+            $socials = $socials ? array_filter( $socials ) : array();
+            foreach ( $socials as $social => $name ) 
+            {
+            printf(' <li> <a href="%s" ><i class="fa fa-%s"></i></a></li>', esc_url( $name ), esc_html($social) );
+            }
+          }?>
           </ul>
         </div>
       </div>

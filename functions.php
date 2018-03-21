@@ -46,6 +46,9 @@ if ( ! function_exists( 'bloghub_setup' ) ) :
 		register_nav_menus( array(
 			'menu-1' => esc_html__( 'Primary', 'bloghub' ),
 		) );
+		register_nav_menus( array(
+			'menu-2' => esc_html__( 'footer', 'bloghub' ),
+		) );
 
 		/*
 		 * Switch default core markup for search form, comment form, and comments
@@ -82,6 +85,17 @@ if ( ! function_exists( 'bloghub_setup' ) ) :
 	}
 endif;
 add_action( 'after_setup_theme', 'bloghub_setup' );
+add_image_size( 'bloghub-layout-blog', 792, 500,  array( 'top', 'center' ) );
+add_image_size( 'bloghub-layout-four-blog', 255, 360,  array( 'top', 'center' ) );
+add_image_size( 'bloghub-related-post-image', 231,150,  array( 'top', 'center' ) );
+
+/**
+ * Registers social widget
+ */
+function bloghub_widgets_register() {
+	require get_template_directory() . '/inc/widgets/social.php';
+}
+add_action('widgets_init', 'bloghub_widgets_register');
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -128,7 +142,11 @@ function bloghub_styles() {
 
 }
 add_action( 'wp_enqueue_scripts', 'bloghub_styles' );
-
+function bloghub_add_link_atts($atts) {
+  $atts['class'] = "cool-link";
+  return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'bloghub_add_link_atts');
 /**
  * Enqueue scripts.
  */
@@ -192,4 +210,83 @@ if ( defined( 'JETPACK__VERSION' ) ) {
  */
 if ( class_exists( 'WooCommerce' ) ) {
 	require get_template_directory() . '/inc/woocommerce.php';
+}
+
+function bloghub_post_formats() {
+	$html  = '';
+	$size  = 'bloghub-thumb-blog-list';
+	$thumb = get_the_post_thumbnail( get_the_ID(), $size );
+
+	switch ( get_post_format() ) {
+		case 'link':
+			$link = get_the_content();
+			if ( $link ) {
+				$html = "<div class='link-wrapper'>$link</div>";
+			}
+			break;
+		case 'quote':
+			$html = get_the_content();
+
+			if ( empty( $thumb ) ) {
+				break;
+			}
+
+			$html .= '<a class="post-image" href="' . get_permalink() . '">';
+			$html .= $thumb;
+			$html .= '</a>';
+			break;
+		case 'gallery':
+
+			// Show gallery
+			bloghub_galleryslider( 'thumb-blog-list' );
+			break;
+		case 'audio':
+			$content     = apply_filters( 'the_content', get_the_content( __( 'Read More', 'bloghub' ) ) );
+			$media       = get_media_embedded_in_content( $content, array( 'audio', 'object', 'embed', 'iframe' ) );
+			$thumb_audio = '';
+			if ( ! empty( $thumb ) ) {
+				$html .= '<a class="post-image" href="' . get_permalink() . '">';
+				$html .= $thumb;
+				$html .= '</a>';
+				$thumb_audio = 'thumb_audio';
+			}
+
+			if ( ! empty( $media ) ) : ?>
+				<?php
+				foreach ( $media as $embed_html ) {
+					$html .= sprintf( '<div class="audio-wrapper %s">%s</div>', $thumb_audio, $embed_html );
+				}
+				?>
+			<?php endif;
+
+			break;
+		case 'video':
+			$content = apply_filters( 'the_content', get_the_content( __( 'Read More', 'bloghub' ) ) );
+			$media   = get_media_embedded_in_content( $content, array( 'video', 'object', 'embed', 'iframe' ) );
+			if ( ! empty( $media ) ) : ?>
+				<?php
+				foreach ( $media as $embed_html ) {
+					$html = sprintf( '%s', $embed_html );
+				}
+				?>
+			<?php endif;
+			break;
+		default:
+			if ( empty( $thumb ) ) {
+				return;
+			}
+
+			$html .= '<a class="post-image" href="' . get_permalink() . '">';
+			$html .= $thumb;
+			$html .= '</a>';
+	}
+
+	if ( $html ) {
+		echo "<div class='post-format-meta'>$html</div>";
+	}
+
+	$post_format = get_post_format( get_the_ID() );
+	if ( 'link' == $post_format || 'quote' == $post_format ) {
+		return;
+	}
 }

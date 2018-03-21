@@ -18,7 +18,8 @@
       <?php
      
     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-      $args = array('posts_per_page' => 8, 'paged' => $paged,'post__not_in' => get_option( 'sticky_posts' ) );
+    $blog_count= get_theme_mod('bloghub_blog_list_count',6);
+      $args = array('posts_per_page' => $blog_count, 'paged' => $paged,'post__not_in' => get_option( 'sticky_posts' ) );
       query_posts($args);
       if ( have_posts() ) :
         /* Start the Loop */
@@ -38,21 +39,19 @@
         echo '<a href="' .esc_url( get_tag_link($tag->term_id)).'">' . esc_html( $tag->name ) . '</a> ';
        
       } } ?></span>
-                <h4><a href="#"><?php the_title(); ?></a></h4>
+                <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
                 <div class="clearfix"></div>
                 <a href="<?php the_permalink(); ?>" class="article-readmore"><?php esc_html_e('Read More','bloghub'); ?></a> </div>
-             <?php if ( has_post_thumbnail() ) {?> <img src="<?php the_post_thumbnail_url(); ?>"  alt="..."><?php } ?> </div>
+             <?php if ( has_post_thumbnail() ) {?>
+            <img src="<?php the_post_thumbnail_url('bloghub-layout-four-blog'); ?>"> <?php } else {?><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/default.jpg' ); ?>"><?php } ?> </div>
           </header>
           <!--share-visit-->
           <ul class="share-visit-article">
-            <li><span class="byline"> <span class="date-article"> 04 aug 2017</span></span></li>
+            <li><?php bloghub_blog_date(); ?></li>
             <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
             <li>
               <ul>
-                <li ><a href="#" title="facebook"><i class="fa fa-facebook"></i></a></li>
-                <li ><a href="#" title="twitter"><i class="fa  fa-twitter"></i></a></li>
-                <li ><a href="#" title="google-plus"><i class="fa  fa-google-plus"></i></a> </li>
-                <li><a href="#" title="Rss Feed"><i class="fa  fa-rss"></i></a></li>
+                <li ><?php echo do_shortcode('[addtoany]'); ?></li>
               </ul>
             </li>
           </ul>

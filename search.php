@@ -9,7 +9,7 @@
 
 get_header(); ?>
 
-	<section id="body-column-type">
+	<section id="body-column-type" class="text-center">
 
 				<h1><?php
 					/* translators: %s: search query. */
