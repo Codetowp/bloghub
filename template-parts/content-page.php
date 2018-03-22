@@ -67,10 +67,16 @@
             		<h4 class="text-center">Share</h4>
             		<hr>
             		<ul class="article-share">
-            			<li ><a href="#" title="facebook"><i class="fa fa-facebook"></i></a></li>
-            			<li ><a href="#" title="twitter"><i class="fa  fa-twitter"></i></a></li>
-            			<li ><a href="#" title="google-plus"><i class="fa  fa-google-plus"></i></a> </li>
-            			<li><a href="#" title="Rss Feed"><i class="fa  fa-rss"></i></a></li>
+            			 <?php
+            
+             if (function_exists('ADDTOANY_SHARE_SAVE_KIT')) {?>
+            <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
+            <li>
+              <ul>
+                <li ><?php echo do_shortcode('[addtoany]'); ?></li>
+              </ul>
+            </li>
+            <?php } ?>
             		</ul>
             	</div>
             	<!--/article content--> 
