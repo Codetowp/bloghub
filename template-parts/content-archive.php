@@ -31,15 +31,16 @@
           <!--share-visit-->
           <ul class="share-visit-article">
             <li><span class="byline"> <span class="date-article"> <?php bloghub_blog_date(); ?></span></span></li>
+            <?php
+            
+             if (function_exists('ADDTOANY_SHARE_SAVE_KIT')) {?>
             <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
             <li>
               <ul>
-                <li ><a href="#" title="facebook"><i class="fa fa-facebook"></i></a></li>
-                <li ><a href="#" title="twitter"><i class="fa  fa-twitter"></i></a></li>
-                <li ><a href="#" title="google-plus"><i class="fa  fa-google-plus"></i></a> </li>
-                <li><a href="#" title="Rss Feed"><i class="fa  fa-rss"></i></a></li>
+                <li ><?php echo do_shortcode('[addtoany]'); ?></li>
               </ul>
             </li>
+            <?php } ?>
           </ul>
           <!--/share-visit--> 
         </article>

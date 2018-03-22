@@ -19,7 +19,16 @@
                 <!--share-visit-->
                 <ul class="share-visit-article">
                   <li><span class="byline"> <span class="date-article"><?php bloghub_blog_date(); ?></span></span></li>
-                  <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
+                   <?php
+            
+             if (function_exists('ADDTOANY_SHARE_SAVE_KIT')) {?>
+            <li><a href="#"><i class="fa fa-share-alt"></i> 5</a></li>
+            <li>
+              <ul>
+                <li ><?php echo do_shortcode('[addtoany]'); ?></li>
+              </ul>
+            </li>
+            <?php } ?>
                 </ul>
                 <!--/share-visit--> 
                 
